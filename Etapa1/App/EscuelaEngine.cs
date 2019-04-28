@@ -16,7 +16,7 @@ namespace CorEscuela {
 
         public void Inicializar() {
 
-            Escuela = new Escuela("Jose Eusebio Caro", 1952, TiposEscuela.Secundaria, "Colombie", "Barranquilla");
+            Escuela = new Escuela("Jose Eusebio Caro", 1952, TiposEscuela.Secundaria, "Colombia", "Barranquilla");
             Escuela.Pais = "Colombia";
             Escuela.Ciudad = "Barranquilla";
             Escuela.TipoEscuela = TiposEscuela.Secundaria;
@@ -25,8 +25,101 @@ namespace CorEscuela {
             CargarEvaluaciones();
         }
 
+        public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(
+            bool traerEvaluaciones = true,
+            bool traerAlumnos = true,
+            bool traerAsignaturas = true,
+            bool traerCursos = true) {
+
+            return getObjetosEscuela(out int dummy, out dummy, out dummy, out dummy);
+        }
+
+        public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(
+            out int conteoEvaluaciones,
+            bool traerEvaluaciones = true,
+            bool traerAlumnos = true,
+            bool traerAsignaturas = true,
+            bool traerCursos = true) 
+            {
+
+            return getObjetosEscuela(out conteoEvaluaciones, out int dummy, out dummy, out dummy);
+
+        }
+
+        public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(
+            out int conteoEvaluaciones,
+            out int conteoAlumnos,
+            bool traerEvaluaciones = true,
+            bool traerAlumnos = true,
+            bool traerAsignaturas = true,
+            bool traerCursos = true) {
+
+            return getObjetosEscuela(out conteoEvaluaciones, out conteoAlumnos, out int dummy, out dummy);
+        }
+
+        public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(
+            out int conteoEvaluaciones,
+            out int conteoAlumnos,
+            out int conteoAsignaturas,
+            bool traerEvaluaciones = true,
+            bool traerAlumnos = true,
+            bool traerAsignaturas = true,
+            bool traerCursos = true) {
+
+            return getObjetosEscuela(out conteoEvaluaciones, out conteoAlumnos, out conteoAsignaturas, out int dummy);
+        }
+
+        public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(
+            out int conteoEvaluaciones,
+            out int conteoAlumnos,
+            out int conteoAsignaturas,
+            out int conteoCursos,
+            bool traerEvaluaciones = true, 
+            bool traerAlumnos = true, 
+            bool traerAsignaturas = true, 
+            bool traerCursos = true) 
+            { 
+
+            //asignacion multiple
+            conteoAsignaturas = conteoAlumnos = conteoEvaluaciones = 0;
+
+            //Crea una lista polimorfica con todos los objetos de la escuela
+            var listaObj = new List<ObjetoEscuelaBase>();
+            listaObj.Add(Escuela);
+
+            if (traerCursos)
+            {
+                listaObj.AddRange(Escuela.Cursos);
+            }
+            conteoCursos = Escuela.Cursos.Count;
+            foreach (var curso in Escuela.Cursos)
+            {
+                conteoAsignaturas += curso.Asignaturas.Count;
+                conteoAlumnos += curso.Alumnos.Count;
+                if (traerAsignaturas)
+                {
+                    listaObj.AddRange(curso.Asignaturas);
+                }
+                if (traerAlumnos)
+                {
+                    listaObj.AddRange(curso.Alumnos);
+                }
+                if (traerEvaluaciones)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        listaObj.AddRange(alumno.Evaluaciones);
+                        conteoEvaluaciones += alumno.Evaluaciones.Count;
+                    }
+                }
+            }
+
+            return listaObj.AsReadOnly();
+        }
+
+        #region Metodos de Carga
         private void CargarEvaluaciones() {
-            var lista = new List<Evaluacion>();
+            //var lista = new List<Evaluacion>();
 
             /*
              * Aqui por cada curso en escuela, 
@@ -47,33 +140,11 @@ namespace CorEscuela {
                                 Nota = (float)(5 * rnd.NextDouble()),
                                 Alumno = alumno
                             };
-                            alumno.Evaluaciones.Add(ev);
+                            alumno.Evaluaciones.Add(ev); //Al alumno le estoy asignando 5 evaluaciones
                         }
                     }
-
-                }
-
-            }
-        }
-
-        public List<ObjetoEscuelaBase> getObjetosEscuela()
-        {
-            //Crea una lista polimorfica con todos los objetos de la escuela
-            var listaObj = new List<ObjetoEscuelaBase>();
-            listaObj.Add(Escuela);
-            listaObj.AddRange(Escuela.Cursos);
-            foreach (var curso in Escuela.Cursos)
-            {
-                listaObj.AddRange(curso.Asignaturas);
-                listaObj.AddRange(curso.Alumnos);
-
-                foreach (var alumno in curso.Alumnos)
-                {
-                    listaObj.AddRange(alumno.Evaluaciones);
                 }
             }
-
-            return listaObj;
         }
 
         private void CargarAsignaturas() {
@@ -147,25 +218,25 @@ namespace CorEscuela {
 
             //Creando los cursos desde una coleccion
             Escuela.Cursos = new List<Curso>(){
-                new Curso() { Nombre = "11-1", Jornada = Jornadas.Matinal },
-                new Curso() { Nombre = "11-2", Jornada = Jornadas.Matinal },
-                new Curso() { Nombre = "10-1", Jornada = Jornadas.Matinal }
+                new Curso() { Nombre = "11-1", Jornada = TiposJornadas.Matinal },
+                new Curso() { Nombre = "11-2", Jornada = TiposJornadas.Matinal },
+                new Curso() { Nombre = "10-1", Jornada = TiposJornadas.Matinal }
             };
 
-            Escuela.Cursos.Add(new Curso() { Nombre = "10-2", Jornada = Jornadas.Matinal });
-            Escuela.Cursos.Add(new Curso() { Nombre = "9-1", Jornada = Jornadas.Matinal });
+            Escuela.Cursos.Add(new Curso() { Nombre = "10-2", Jornada = TiposJornadas.Matinal });
+            Escuela.Cursos.Add(new Curso() { Nombre = "9-1", Jornada = TiposJornadas.Matinal });
 
             //Es posible crear una lista aparte y asignarsela a una lista existente con addRange
             var otraLista = new List<Curso>(){
-                new Curso() { Nombre = "9-2", Jornada = Jornadas.Matinal },
-                new Curso() { Nombre = "8-1", Jornada = Jornadas.Matinal },
-                new Curso() { Nombre = "8-2", Jornada = Jornadas.Matinal }
+                new Curso() { Nombre = "9-2", Jornada = TiposJornadas.Matinal },
+                new Curso() { Nombre = "8-1", Jornada = TiposJornadas.Matinal },
+                new Curso() { Nombre = "8-2", Jornada = TiposJornadas.Matinal }
             };
             Escuela.Cursos.AddRange(otraLista);
 
             //Eliminar elementos de una Coleccion
             //otraLista.Clear(); //Borra toda la coleccion
-            var nuevoCurso = new Curso() { Nombre = "VACACIONAL", Jornada = Jornadas.Matinal };
+            var nuevoCurso = new Curso() { Nombre = "VACACIONAL", Jornada = TiposJornadas.Matinal };
             Escuela.Cursos.Add(nuevoCurso);
 
             Random rnd = new Random();
@@ -174,5 +245,6 @@ namespace CorEscuela {
                 curso.Alumnos = GenerarAlumnosAlAzar(cantidadRandom);
             }
         }
+        #endregion
     }
 }

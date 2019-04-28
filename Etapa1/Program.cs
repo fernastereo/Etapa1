@@ -2,6 +2,7 @@
 using CorEscuela.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static System.Console; //Esto me va a permitir no tener que escribir la palabra Console en los writeline
 
 namespace CorEscuela {
@@ -11,10 +12,19 @@ namespace CorEscuela {
 
             var engine = new EscuelaEngine();
             engine.Inicializar();
-
             Printer.WriteTittle("Bienvenidos a la Escuela");
             //Printer.Pitar(1000, 1500, 4);
             imprimirCursosEscuela(engine.Escuela);
+
+
+            //var listaObjetos = engine.getObjetosEscuela();
+            
+            ////engine.Escuela.limpiarLugar();
+            //var listaILugar = from obj in listaObjetos
+            //                  where obj is ILugar
+            //                  select (ILugar)obj;
+            ReadLine();
+
 
             ////******** FORMAS DE USAR EL METODO REMOVEALL *******************
             ////escuela.Cursos.Remove(nuevoCurso); aqui borra a través del hash del objeto pero no es seguro ya que puede haber mas de uno con el mismo hash
@@ -37,25 +47,26 @@ namespace CorEscuela {
             //escuela.Cursos.RemoveAll((Curso cur) => cur.Nombre == "VACACIONAL");
             ////***************************************************************
 
-            /* PRUEBAS CON POLIMORFISMO
+            /*//PRUEBAS CON POLIMORFISMO
             Printer.DrawLine(28);
             Printer.DrawLine(28);
             Printer.DrawLine(28);
             Printer.WriteTittle("Pruebas con Polimorfismo");
 
             var alumnoTest = new Alumno { Nombre = "El Ferna Stereo" };
-            
+
             Printer.WriteTittle("Alumno");
             WriteLine($"Alumno: {alumnoTest.UniqueId}");
             WriteLine($"Alumno: {alumnoTest.Nombre}");
             WriteLine($"Alumno: {alumnoTest.GetType()}");
-
+            
             ObjetoEscuelaBase ob = alumnoTest;
-            Printer.WriteTittle("Objeto Escuela Alumno");
+            Printer.WriteTittle("Objeto Escuela - Alumno");
             WriteLine($"Alumno: {ob.UniqueId}");
             WriteLine($"Alumno: {ob.Nombre}");
             WriteLine($"Alumno: {ob.GetType()}");
 
+            
             var objDummy = new ObjetoEscuelaBase() { Nombre = "Leonor Gazmo"};
             Printer.WriteTittle("Objeto Escuela Base");
             WriteLine($"Alumno: {objDummy.UniqueId}");
@@ -64,7 +75,7 @@ namespace CorEscuela {
 
             var evaluacion = new Evaluacion()
             {
-                Nombre = "Evaluación Matemáticas",
+                Nombre = "Evaluación de Matemáticas",
                 Nota = 4.5f
             };
             Printer.WriteTittle("Evaluación");
@@ -72,24 +83,26 @@ namespace CorEscuela {
             WriteLine($"evaluacion: {evaluacion.Nombre}");
             WriteLine($"evaluacion: {evaluacion.Nota}");
             WriteLine($"evaluacion: {evaluacion.GetType()}");
-
+            
             ob = evaluacion;
-            //Printer.WriteTittle("Objeto Escuela Evaluacion");
-            //WriteLine($"Alumno: {ob.UniqueId}");
-            //WriteLine($"Alumno: {ob.Nombre}");
-            //WriteLine($"Alumno: {ob.GetType()}");
-
+            Printer.WriteTittle("Objeto Escuela Evaluacion");
+            WriteLine($"Alumno: {ob.UniqueId}");
+            WriteLine($"Alumno: {ob.Nombre}");
+            WriteLine($"Alumno: {ob.GetType()}");
+            
+            
             if(ob is Alumno) //is: para preguntar si un objeto es de un tipo determinado
             {
                 Alumno alumnoRecuperado = (Alumno)ob;
             }
 
             Alumno alumnoRecuperado2 = ob as Alumno;
-            FIN PRUEBAS CON POLIMORFISMO  */
+            if (alumnoRecuperado2 != null)
+            {
+                // Haga algo!
+            }
 
-            var listaObjetos = engine.getObjetosEscuela();
-
-            ReadLine();
+            FIN PRUEBAS CON POLIMORFISMO  */          
         }
 
         private static bool Predicado(Curso cursoObj) {

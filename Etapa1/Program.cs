@@ -15,10 +15,24 @@ namespace CorEscuela {
             Printer.WriteTittle("Bienvenidos a la Escuela");
             //Printer.Pitar(1000, 1500, 4);
             imprimirCursosEscuela(engine.Escuela);
+            Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
+            diccionario.Add(10, "Juanla");
+            diccionario.Add(23, "Fernast");
+            diccionario.Add(0, "sasdasd");
+
+            foreach (var keyValPair in diccionario)
+            {
+                Console.WriteLine($"Clave: {keyValPair.Key} - Valor: {keyValPair.Value}");
+            }
+
+            Printer.WriteTittle("Acceso al Diccionario");
+            Console.WriteLine(diccionario[23]);
+            diccionario[0] = "asdasd";
+            Console.WriteLine(diccionario[0]);
 
             //var listaObjetos = engine.getObjetosEscuela();
-            
+
             ////engine.Escuela.limpiarLugar();
             //var listaILugar = from obj in listaObjetos
             //                  where obj is ILugar

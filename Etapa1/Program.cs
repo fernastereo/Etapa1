@@ -16,7 +16,7 @@ namespace CorEscuela {
             //Printer.Pitar(1000, 1500, 4);
             imprimirCursosEscuela(engine.Escuela);
             var dirtmp = engine.getDiccionarioObjetos();
-            engine.imprimirDireccionario(dirtmp);
+            engine.imprimirDireccionario(dirtmp, true);
             ReadLine();
             //Creacion y Uso Basico de un Diccionario 
             /*

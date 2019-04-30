@@ -4,7 +4,7 @@ namespace CorEscuela {
         Curso,
         Alumno,
         Asignatura,
-        Evalucacione,
+        Evaluacion,
         Escuela
     }
 }

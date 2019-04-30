@@ -1,4 +1,5 @@
 ﻿using CorEscuela.Entidades;
+using CorEscuela.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,38 @@ namespace CorEscuela {
 
             diccionario.Add(LlaveDiccionario.Escuela, new[] { Escuela });
             diccionario.Add(LlaveDiccionario.Curso, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
+
+            var listatmpasi = new List<Asignatura>();
+            var listatmpalu = new List<Alumno>();
+            var listatmpeva = new List<Evaluacion>();
+            foreach (var curso in Escuela.Cursos)
+            {
+                listatmpasi.AddRange(curso.Asignaturas);
+                listatmpalu.AddRange(curso.Alumnos);
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listatmpeva.AddRange(alumno.Evaluaciones);
+                }
+            }
+
+            diccionario.Add(LlaveDiccionario.Asignatura, listatmpasi.Cast<ObjetoEscuelaBase>());
+            diccionario.Add(LlaveDiccionario.Alumno, listatmpalu.Cast<ObjetoEscuelaBase>());
+            diccionario.Add(LlaveDiccionario.Evaluacion, listatmpeva.Cast<ObjetoEscuelaBase>());
+
             return diccionario;
+        }
+
+        public void imprimirDireccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic) {
+            foreach (var obj in dic)
+            {
+                Printer.WriteTittle(obj.Key.ToString());
+
+                foreach (var val in obj.Value)
+                {
+                    Console.WriteLine(val);
+                }
+            }
         }
 
         public IReadOnlyList<ObjetoEscuelaBase> getObjetosEscuela(

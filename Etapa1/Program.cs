@@ -15,7 +15,9 @@ namespace CorEscuela {
             Printer.WriteTittle("Bienvenidos a la Escuela");
             //Printer.Pitar(1000, 1500, 4);
             imprimirCursosEscuela(engine.Escuela);
-
+            var dirtmp = engine.getDiccionarioObjetos();
+            engine.imprimirDireccionario(dirtmp);
+            ReadLine();
             //Creacion y Uso Basico de un Diccionario 
             /*
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
@@ -39,7 +41,7 @@ namespace CorEscuela {
             //var listaILugar = from obj in listaObjetos
             //                  where obj is ILugar
             //                  select (ILugar)obj;
-            ReadLine();
+            
 
 
             ////******** FORMAS DE USAR EL METODO REMOVEALL *******************
@@ -63,7 +65,8 @@ namespace CorEscuela {
             //escuela.Cursos.RemoveAll((Curso cur) => cur.Nombre == "VACACIONAL");
             ////***************************************************************
 
-            /*//PRUEBAS CON POLIMORFISMO
+            /*
+            //PRUEBAS CON POLIMORFISMO
             Printer.DrawLine(28);
             Printer.DrawLine(28);
             Printer.DrawLine(28);
@@ -118,7 +121,7 @@ namespace CorEscuela {
                 // Haga algo!
             }
 
-            FIN PRUEBAS CON POLIMORFISMO  */          
+            FIN PRUEBAS CON POLIMORFISMO  */
         }
 
         private static bool Predicado(Curso cursoObj) {

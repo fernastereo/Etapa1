@@ -10,13 +10,17 @@ namespace CorEscuela {
         static void Main(string[] args) {
             //Division entera (modulo-MOD): se usa % ej: if(numero % 5 == 0), y: &&, o: ||
 
+            //Creacion de un evento (Evento cuando temrina la aplicacion):
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+            AppDomain.CurrentDomain.ProcessExit += (o, s) => Printer.Pitar(2000, 500, 2);
+
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTittle("Bienvenidos a la Escuela");
             //Printer.Pitar(1000, 1500, 4);
             imprimirCursosEscuela(engine.Escuela);
             var dirtmp = engine.getDiccionarioObjetos();
-            engine.imprimirDireccionario(dirtmp, true);
+            engine.imprimirDireccionario(dirtmp);
             ReadLine();
             //Creacion y Uso Basico de un Diccionario 
             /*
@@ -122,6 +126,12 @@ namespace CorEscuela {
             }
 
             FIN PRUEBAS CON POLIMORFISMO  */
+        }
+
+        private static void AccionDelEvento(object sender, EventArgs e) {
+            Printer.WriteTittle("SALIENDO");
+            Printer.Pitar(3000, 1000, 3);
+            Printer.WriteTittle("YA SALIO");
         }
 
         private static bool Predicado(Curso cursoObj) {

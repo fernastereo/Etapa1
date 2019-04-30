@@ -193,10 +193,11 @@ namespace CorEscuela {
              * por cada alumno del curso,
              * creamos 5 evalauaciones por cada alumno y al final se la asignamos al alumno
              */
+            var rnd = new Random(System.Environment.TickCount);
             foreach (var curso in Escuela.Cursos) {
                 foreach (var asignatura in curso.Asignaturas) {
                     foreach (var alumno in curso.Alumnos) {
-                        var rnd = new Random(System.Environment.TickCount);
+                        
                         for (int i = 0; i < 5; i++) {
                            // se instancia la clase evaluacion
                             var ev = new Evaluacion {

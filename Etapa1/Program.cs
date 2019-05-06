@@ -17,11 +17,23 @@ namespace CorEscuela {
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTittle("Bienvenidos a la Escuela");
+
+            var reporteador = new Reporteador(engine.getDiccionarioObjetos());
+            reporteador.getListaEvaluaciones();
+            ReadLine();
+
+
+
             //Printer.Pitar(1000, 1500, 4);
-            imprimirCursosEscuela(engine.Escuela);
+            //imprimirCursosEscuela(engine.Escuela);
+
+            //Otro Uso de Diccionarios
+            /*
             var dirtmp = engine.getDiccionarioObjetos();
             engine.imprimirDireccionario(dirtmp);
-            ReadLine();
+            */
+
+
             //Creacion y Uso Basico de un Diccionario 
             /*
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
@@ -130,7 +142,7 @@ namespace CorEscuela {
 
         private static void AccionDelEvento(object sender, EventArgs e) {
             Printer.WriteTittle("SALIENDO");
-            Printer.Pitar(3000, 1000, 3);
+            Printer.Pitar(3000, 500, 1);
             Printer.WriteTittle("YA SALIO");
         }
 

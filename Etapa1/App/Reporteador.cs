@@ -17,20 +17,26 @@ namespace CorEscuela {
             _diccionario = dicObsEsc;
         }
 
-        public IEnumerable<Escuela> getListaEvaluaciones() {
+        public IEnumerable<Evaluacion> getListaEvaluaciones() {
 
-            IEnumerable<Escuela> rta;
-
-            if (_diccionario.TryGetValue(LlaveDiccionario.Escuela, out IEnumerable<ObjetoEscuelaBase> lista))
+            if (_diccionario.TryGetValue(LlaveDiccionario.Evaluacion, out IEnumerable<ObjetoEscuelaBase> lista))
             {
                 //TryGetValue devuelve true si trae el diccionario
-                rta = lista.Cast<Escuela>();
+                return lista.Cast<Evaluacion>();
             } else
             {
-                rta = null;
+                return new List<Evaluacion>();
             }
 
-            return rta;
+        }
+
+        public IEnumerable<string> getListaAsignaturas() {
+            //establecemos el origen de datos:
+            var listaEvaluaciones = getListaEvaluaciones();
+
+            //Esto devolverá una lista de asignaturas cuya evaluacion es mayor a 3.0
+            return (from Evaluacion ev in listaEvaluaciones
+                   select ev.Asignatura.Nombre).Distinct();
         }
     }
 }

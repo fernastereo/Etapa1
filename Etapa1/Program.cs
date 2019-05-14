@@ -19,7 +19,8 @@ namespace CorEscuela {
             Printer.WriteTittle("Bienvenidos a la Escuela");
 
             var reporteador = new Reporteador(engine.getDiccionarioObjetos());
-            reporteador.getListaEvaluaciones();
+            var evalList = reporteador.getListaEvaluaciones();
+            var listaAsig = reporteador.getListaAsignaturas();
             ReadLine();
 
 

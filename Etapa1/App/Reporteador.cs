@@ -31,12 +31,39 @@ namespace CorEscuela {
         }
 
         public IEnumerable<string> getListaAsignaturas() {
+            return getListaAsignaturas(out var dummy);
+        }
+
+        public IEnumerable<string> getListaAsignaturas(out IEnumerable<Evaluacion> listaEvaluaciones) {
             //establecemos el origen de datos:
-            var listaEvaluaciones = getListaEvaluaciones();
+            listaEvaluaciones = getListaEvaluaciones();
 
             //Esto devolverá una lista de asignaturas cuya evaluacion es mayor a 3.0
             return (from Evaluacion ev in listaEvaluaciones
                    select ev.Asignatura.Nombre).Distinct();
+        }
+
+        public Dictionary<string, IEnumerable<Evaluacion>> getDicEvalxAsig() {
+            //Declaramos el diccionario que se va a devolver como respuesta:
+            var dicRta = new Dictionary<string, IEnumerable<Evaluacion>>();
+
+            //Declaramos una variable que va a tener la lista de asignaturas unica
+            //y tambien un parametro de salida con la lista de las evaluaciones:
+            var listaAsig = getListaAsignaturas(out var listaEval);
+
+            //recorremos cada una de las asignaturas devueltas:
+            foreach (var asig in listaAsig)
+            {
+                //consultamos todas las evaluaciones por cada una de las asignaturas del bucle
+                var evalxAsig = from eval in listaEval
+                                where eval.Asignatura.Nombre == asig
+                                select eval;
+                //agregamos cada asignatura con su lista de evaluaciones al diccionario
+                dicRta.Add(asig, evalxAsig);
+            }
+
+            //dovolvemos el diccionario
+            return dicRta;
         }
     }
 }

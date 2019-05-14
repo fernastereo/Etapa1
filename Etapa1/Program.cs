@@ -21,6 +21,7 @@ namespace CorEscuela {
             var reporteador = new Reporteador(engine.getDiccionarioObjetos());
             var evalList = reporteador.getListaEvaluaciones();
             var listaAsig = reporteador.getListaAsignaturas();
+            var listaEvalxAsig = reporteador.getDicEvalxAsig();
             ReadLine();
 
 

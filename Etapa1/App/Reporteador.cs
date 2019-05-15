@@ -65,5 +65,30 @@ namespace CorEscuela {
             //dovolvemos el diccionario
             return dicRta;
         }
+
+        public Dictionary<string, IEnumerable<object>> getPromAlumnoxAsignatura() {
+            var rta = new Dictionary<string, IEnumerable<object>>();
+            var dicEvalxAsign = getDicEvalxAsig();
+
+            foreach (var asigConEval in dicEvalxAsign)
+            {
+                var promsAlumno = from eval in asigConEval.Value
+                            group eval by new
+                            {
+                                eval.Alumno.UniqueId,
+                                eval.Alumno.Nombre
+                            }
+                            into grupoEvalsAlumno
+                            select new AlumnoPromedio
+                            {
+                                alumnoId = grupoEvalsAlumno.Key.UniqueId,
+                                alumnoNombre = grupoEvalsAlumno.Key.Nombre,
+                                promedio = grupoEvalsAlumno.Average(cualquierCosa => cualquierCosa.Nota)
+                            };
+                rta.Add(asigConEval.Key, promsAlumno);
+            }
+
+            return rta;
+        }
     }
 }

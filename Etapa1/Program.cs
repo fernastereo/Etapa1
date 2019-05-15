@@ -22,6 +22,7 @@ namespace CorEscuela {
             var evalList = reporteador.getListaEvaluaciones();
             var listaAsig = reporteador.getListaAsignaturas();
             var listaEvalxAsig = reporteador.getDicEvalxAsig();
+            var listaPromxAsig = reporteador.getPromAlumnoxAsignatura();
             ReadLine();
 
 

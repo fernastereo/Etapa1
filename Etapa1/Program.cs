@@ -16,13 +16,16 @@ namespace CorEscuela {
 
             var engine = new EscuelaEngine();
             engine.Inicializar();
-            Printer.WriteTittle("Bienvenidos a la Escuela");
+            Printer.WriteTitle("Bienvenidos a la Escuela");
 
             var reporteador = new Reporteador(engine.getDiccionarioObjetos());
             var evalList = reporteador.getListaEvaluaciones();
             var listaAsig = reporteador.getListaAsignaturas();
             var listaEvalxAsig = reporteador.getDicEvalxAsig();
             var listaPromxAsig = reporteador.getPromAlumnoxAsignatura();
+            var listaTopXPromxAsig = reporteador.getTopAlumnoxAsignatura(5);
+            Printer.WriteTitle("Captura de una Evaluación por Consola");
+
             ReadLine();
 
 
@@ -47,7 +50,7 @@ namespace CorEscuela {
             {
                 Console.WriteLine($"Clave: {keyValPair.Key} - Valor: {keyValPair.Value}");
             }
-            Printer.WriteTittle("Acceso al Diccionario");
+            Printer.WriteTitle("Acceso al Diccionario");
             Console.WriteLine(diccionario[23]);
             diccionario[0] = "asdasd";
             Console.WriteLine(diccionario[0]);
@@ -89,24 +92,24 @@ namespace CorEscuela {
             Printer.DrawLine(28);
             Printer.DrawLine(28);
             Printer.DrawLine(28);
-            Printer.WriteTittle("Pruebas con Polimorfismo");
+            Printer.WriteTitle("Pruebas con Polimorfismo");
 
             var alumnoTest = new Alumno { Nombre = "El Ferna Stereo" };
 
-            Printer.WriteTittle("Alumno");
+            Printer.WriteTitle("Alumno");
             WriteLine($"Alumno: {alumnoTest.UniqueId}");
             WriteLine($"Alumno: {alumnoTest.Nombre}");
             WriteLine($"Alumno: {alumnoTest.GetType()}");
             
             ObjetoEscuelaBase ob = alumnoTest;
-            Printer.WriteTittle("Objeto Escuela - Alumno");
+            Printer.WriteTitle("Objeto Escuela - Alumno");
             WriteLine($"Alumno: {ob.UniqueId}");
             WriteLine($"Alumno: {ob.Nombre}");
             WriteLine($"Alumno: {ob.GetType()}");
 
             
             var objDummy = new ObjetoEscuelaBase() { Nombre = "Leonor Gazmo"};
-            Printer.WriteTittle("Objeto Escuela Base");
+            Printer.WriteTitle("Objeto Escuela Base");
             WriteLine($"Alumno: {objDummy.UniqueId}");
             WriteLine($"Alumno: {objDummy.Nombre}");
             WriteLine($"Alumno: {objDummy.GetType()}");
@@ -116,14 +119,14 @@ namespace CorEscuela {
                 Nombre = "Evaluación de Matemáticas",
                 Nota = 4.5f
             };
-            Printer.WriteTittle("Evaluación");
+            Printer.WriteTitle("Evaluación");
             WriteLine($"evaluacion: {evaluacion.UniqueId}");
             WriteLine($"evaluacion: {evaluacion.Nombre}");
             WriteLine($"evaluacion: {evaluacion.Nota}");
             WriteLine($"evaluacion: {evaluacion.GetType()}");
             
             ob = evaluacion;
-            Printer.WriteTittle("Objeto Escuela Evaluacion");
+            Printer.WriteTitle("Objeto Escuela Evaluacion");
             WriteLine($"Alumno: {ob.UniqueId}");
             WriteLine($"Alumno: {ob.Nombre}");
             WriteLine($"Alumno: {ob.GetType()}");
@@ -144,9 +147,9 @@ namespace CorEscuela {
         }
 
         private static void AccionDelEvento(object sender, EventArgs e) {
-            Printer.WriteTittle("SALIENDO");
+            Printer.WriteTitle("SALIENDO");
             Printer.Pitar(3000, 500, 1);
-            Printer.WriteTittle("YA SALIO");
+            Printer.WriteTitle("YA SALIO");
         }
 
         private static bool Predicado(Curso cursoObj) {
@@ -155,7 +158,7 @@ namespace CorEscuela {
 
         private static void imprimirCursosEscuela(Escuela escuela) {
             if (escuela?.Cursos != null) { //el signo ? quiere decir que verifica si es null primero la clase y luego la propiedad
-                Printer.WriteTittle("Escuela Cursos");
+                Printer.WriteTitle("Escuela Cursos");
                 foreach (var curso in escuela.Cursos) {
                     WriteLine(curso.Nombre + " - " + curso.UniqueId);
                 }

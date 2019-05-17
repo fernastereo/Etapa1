@@ -85,9 +85,38 @@ namespace CorEscuela {
                                 alumnoNombre = grupoEvalsAlumno.Key.Nombre,
                                 promedio = grupoEvalsAlumno.Average(cualquierCosa => cualquierCosa.Nota)
                             };
+                
                 rta.Add(asigConEval.Key, promsAlumno);
             }
+            return rta;
+        }
+       
+        public Dictionary<string, IEnumerable<object>> getTopAlumnoxAsignatura(int topX) {
+            /*
+           -Crear un reporte que muestre solo los mejores x promedios por asignatura
+           -X debe ser pasado como parámetro
+           -El reporte contiene la asignatura y una lista de los top X alumnos con su promedio
+            */
+            var rta = new Dictionary<string, IEnumerable<object>>();
+            var dicEvalxAsig = getDicEvalxAsig();
 
+            foreach (var asigConEval in dicEvalxAsig)
+            {
+                var promsAlumno = from eval in asigConEval.Value
+                                    group eval by new
+                                    {
+                                        eval.Alumno.UniqueId,
+                                        eval.Alumno.Nombre
+                                    }
+                                    into grupoEvalsAlumno
+                                    select new AlumnoPromedio {
+                                        alumnoId = grupoEvalsAlumno.Key.UniqueId,
+                                        alumnoNombre = grupoEvalsAlumno.Key.Nombre,
+                                        promedio = grupoEvalsAlumno.Average(vNota => vNota.Nota)
+                                    };
+                rta.Add(asigConEval.Key, 
+                    promsAlumno.OrderByDescending(alum => alum.promedio).Take(topX));
+            }
             return rta;
         }
     }

@@ -13,7 +13,7 @@ namespace CorEscuela.Util {
             WriteLine(linea);
         }
 
-        public static void WriteTittle(string titulo) {
+        public static void WriteTitle(string titulo) {
             var tam = titulo.Length + 4;
             DrawLine(tam);
             WriteLine($"| {titulo} |");

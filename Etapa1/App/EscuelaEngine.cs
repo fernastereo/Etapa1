@@ -56,7 +56,7 @@ namespace CorEscuela {
         public void imprimirDireccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic, bool imprimirEvaluaciones = false) {
             foreach (var obj in dic)
             {
-                Printer.WriteTittle(obj.Key.ToString());
+                Printer.WriteTitle(obj.Key.ToString());
 
                 foreach (var val in obj.Value)
                 {
@@ -191,7 +191,7 @@ namespace CorEscuela {
              * Aqui por cada curso en escuela, 
              * por cada asignatura del curso,
              * por cada alumno del curso,
-             * creamos 5 evalauaciones por cada alumno y al final se la asignamos al alumno
+             * creamos 5 evaluaciones por cada alumno y al final se la asignamos al alumno
              */
             var rnd = new Random(System.Environment.TickCount);
             foreach (var curso in Escuela.Cursos) {

@@ -46,7 +46,7 @@ namespace CorEscuela.Entidades {
                 curso.limpiarLugar();
             }
 
-            Printer.WriteTittle($"ESCUELA {Nombre} LIMPIA");
+            Printer.WriteTitle($"ESCUELA {Nombre} LIMPIA");
         }
 
     }

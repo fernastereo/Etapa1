@@ -13,6 +13,10 @@ namespace CorEscuela.Util {
             WriteLine(linea);
         }
 
+        public static void presioneEnter() {
+            WriteLine("Presione ENTER para continuar");
+        }
+
         public static void WriteTitle(string titulo) {
             var tam = titulo.Length + 4;
             DrawLine(tam);

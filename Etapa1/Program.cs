@@ -24,8 +24,52 @@ namespace CorEscuela {
             var listaEvalxAsig = reporteador.getDicEvalxAsig();
             var listaPromxAsig = reporteador.getPromAlumnoxAsignatura();
             var listaTopXPromxAsig = reporteador.getTopAlumnoxAsignatura(5);
-            Printer.WriteTitle("Captura de una Evaluación por Consola");
 
+            Printer.WriteTitle("Captura de una Evaluación por Consola");
+            var newEval = new Evaluacion();
+            string nombre, notaString;
+            float nota;
+            WriteLine("Ingrese el nombre de la evaluación: ");
+            Printer.presioneEnter();
+            nombre = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                //Lanzar una excepcion:
+                throw new ArgumentException("El valor del nombre no puede ser vacio");
+            } else
+            {
+                newEval.Nombre = nombre.ToUpper();
+                WriteLine("El nombre de la evaluación fue ingresado con éxito");
+            }
+
+            WriteLine("Ingrese la nota de la evaluación: ");
+            Printer.presioneEnter();
+            notaString = Console.ReadLine();
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(notaString))
+                {
+                    //Lanzar una excepcion:
+                    throw new ArgumentException("El valor de la nota no puede ser vacio");
+                } else
+                {
+                    newEval.Nota = float.Parse(notaString);
+                    if (newEval.Nota < 0 || newEval.Nota > 5)
+                    {
+                        throw new ArgumentOutOfRangeException("La nota debe estar entre 0 y 5");
+                    }
+                    WriteLine("La nota de la evaluación fue ingresado con éxito");
+                }
+            } catch (ArgumentOutOfRangeException arge)
+            {
+                Printer.WriteTitle(arge.Message);
+                WriteLine("Saliendo");
+            }
+            finally{
+                Printer.WriteTitle("FINALLY");
+            }
             ReadLine();
 
 
